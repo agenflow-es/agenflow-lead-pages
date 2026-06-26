@@ -1,0 +1,24 @@
+{
+  "name": "agenflow-lead-pages",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Servidor aislado de paginas personalizadas para leads (propuestas y futuros tipos). Proxy fino: lee artefacto_html por slug como rol lead_pages_serving y lo hace stream con cabeceras de privacidad + tracking server-side. La web de marca (agenflow.es) solo hace rewrite.",
+  "scripts": {
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start -p 3002"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "pg": "^8.13.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/pg": "^8.11.10",
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}
