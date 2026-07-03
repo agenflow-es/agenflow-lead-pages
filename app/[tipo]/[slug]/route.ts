@@ -42,7 +42,7 @@ export async function GET(
     const { rows } = await pool.query(SELECT, [slug]);
     const row = rows[0];
     // 404 si: no existe / no publicada (filtrado por la query) / sin artefacto / tipo no casa con la ruta
-    if (!row || !row.artefacto_html || row.tipo !== entry.proposalTipo) return notFound();
+    if (!row || !row.artefacto_html || !entry.proposalTipos.includes(row.tipo)) return notFound();
 
     // tracking server-side TRAS responder (0 latencia para el HTML); nunca rompe el servido
     const ip = (req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "")
