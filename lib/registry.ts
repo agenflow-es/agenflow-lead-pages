@@ -19,5 +19,21 @@ export const REGISTRY: Record<string, LeadPageType> = {
   "propuesta-web": {
     proposalTipos: ["mejora_web_primer_contacto", "web_nueva_primer_contacto"],
   },
+  // Maquetas de prospeccion de la vertical de instaladores: una muestra de la web
+  // FUTURA del prospecto, no un documento sobre su web ACTUAL. Las genera y publica
+  // dev/instaladores/template con el rol `maquetas_publisher` (migracion 0027).
+  "muestra-web": {
+    proposalTipos: ["muestra_web_prospecto"],
+  },
   // futuro: "propuesta-consultoria": { proposalTipos: ["consultoria_ia_primer_contacto"] },
 };
+
+/**
+ * Los segmentos de ruta que agenflow-web tiene que reenviar aqui.
+ *
+ * Se DERIVA del REGISTRY a proposito: si fuese una segunda lista escrita a mano,
+ * el dia que alguien anadiera un tipo aqui y se olvidara alli, el enlace daria 404
+ * sin que nadie supiera por que. Asi, anadir un tipo es anadir UNA PALABRA arriba
+ * y ya queda enrutado.
+ */
+export const TIPOS_SERVIDOS = Object.keys(REGISTRY);
