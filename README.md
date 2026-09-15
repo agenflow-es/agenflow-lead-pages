@@ -1,9 +1,9 @@
 # agenflow-lead-pages
 
 Servidor **aislado** de páginas personalizadas para leads (propuestas y futuros tipos). Es un
-**proxy fino**: lee el HTML ya construido (`proposal_versions.artefacto_html`) por slug como rol
+**proxy fino**: lee el HTML ya construido (`propuesta_versiones.artefacto_html`) por slug como rol
 nativo `lead_pages_serving` (mínimo privilegio), lo hace **stream** con cabeceras de privacidad, y
-registra la apertura en `proposal_events` (tracking server-side). **No renderiza, no usa Python, no
+registra la apertura en `propuesta_eventos` (tracking server-side). **No renderiza, no usa Python, no
 toca S3.** La web de marca (agenflow.es) solo hace un *rewrite* a este proyecto.
 
 ## Por qué aislado
@@ -25,7 +25,7 @@ queda **tonta** (sin credenciales ni datos de cliente); aquí vive el único acc
 ## Seguridad
 
 - Rol `lead_pages_serving`: SELECT acotado de `artefacto_html`/slug, INSERT/SELECT de
-  `proposal_events`, UPDATE de rollups. **Cero** acceso a `companies`/`estado`/`contenido`.
+  `propuesta_eventos`, UPDATE de rollups. **Cero** acceso a `empresas`/`estado`/`contenido`.
 - `PROPOSALS_SERVING_DB_URL` **server-only**, sin `NEXT_PUBLIC_` → nunca llega al bundle del cliente.
 - **SSL real**: el pooler de Supabase usa su propia CA (`lib/db/supabase-ca.ts`, cert público);
   verificamos con `rejectUnauthorized: true`. Sin atajos (`rejectUnauthorized:false`).

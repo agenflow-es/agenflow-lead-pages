@@ -11,9 +11,9 @@ export const dynamic = "force-dynamic"; // jamas cachear un artefacto privado
 // Lee SOLO lo necesario por slug, y SOLO si la version esta publicada (la RLS de lead_pages_serving
 // lo impone tambien en DB: doble candado app + RLS).
 const SELECT = `
-  select pv.id, pv.proposal_id, pv.artefacto_html, p.company_id, p.tipo
-  from proposal_versions pv
-  join proposals p on p.id = pv.proposal_id
+  select pv.id, pv.propuesta_id, pv.artefacto_html, p.empresa_id, p.tipo
+  from propuesta_versiones pv
+  join propuestas p on p.id = pv.propuesta_id
   where pv.slug = $1 and pv.estado = 'publicada'
   limit 1`;
 
@@ -41,7 +41,7 @@ export async function GET(
   try {
     const { rows } = await pool.query(SELECT, [slug]);
     const row = rows[0];
-    // 404 si: no existe / no publicada (filtrado por la query) / sin artefacto / tipo no casa con la ruta
+    // 404 si: no existe / no publicada (filtrado por la consulta) / sin artefacto / tipo no casa con la ruta
     if (!row || !row.artefacto_html || !entry.proposalTipos.includes(row.tipo)) return notFound();
 
     // tracking server-side TRAS responder (0 latencia para el HTML); nunca rompe el servido
@@ -54,8 +54,8 @@ export async function GET(
       try {
         await recordOpen({
           versionId: row.id,
-          proposalId: row.proposal_id,
-          companyId: row.company_id,
+          proposalId: row.propuesta_id,
+          companyId: row.empresa_id,
           ip,
           ua,
           referrer,

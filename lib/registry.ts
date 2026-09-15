@@ -3,7 +3,7 @@
  * (p. ej. /propuesta-consultoria/<slug>) = UNA entrada aqui + UNA linea de rewrite en
  * agenflow-web. Nunca un proyecto nuevo.
  *
- * Hoy una sola fuente: las PROPUESTAS (tabla proposal_versions). `proposalTipos` valida que un
+ * Hoy una sola fuente: las PROPUESTAS (tabla propuesta_versiones). `proposalTipos` valida que un
  * slug solo se sirva bajo su vanity URL correcta (un slug de /propuesta-consultoria no se
  * serviria aqui). Una vanity URL puede cubrir VARIAS familias internas de propuesta (el
  * prospecto no distingue "remodelado" de "web desde cero" por la URL — es un detalle interno,
@@ -11,19 +11,13 @@
  * array, no un valor unico. Tipos futuros que lean de OTRAS tablas anaden su propio resolver.
  */
 export type LeadPageType = {
-  /** valores validos de proposals.tipo para este segmento de ruta (una o mas familias) */
+  /** valores validos de `propuestas.tipo` (catalogo `propuesta_tipos`) para este segmento de ruta (una o mas familias) */
   proposalTipos: string[];
 };
 
 export const REGISTRY: Record<string, LeadPageType> = {
   "propuesta-web": {
     proposalTipos: ["mejora_web_primer_contacto", "web_nueva_primer_contacto"],
-  },
-  // Maquetas de prospeccion de la vertical de instaladores: una muestra de la web
-  // FUTURA del prospecto, no un documento sobre su web ACTUAL. Las genera y publica
-  // dev/instaladores/template con el rol `maquetas_publisher` (migracion 0027).
-  "muestra-web": {
-    proposalTipos: ["muestra_web_prospecto"],
   },
   // futuro: "propuesta-consultoria": { proposalTipos: ["consultoria_ia_primer_contacto"] },
 };
